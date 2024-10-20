@@ -11,6 +11,21 @@ const ListNames = () => {
     const [showQR, setshowQR] = useState(null);
     const [receiverUPIID, setreceiverUPIID] = useState('');
 
+    useEffect(()=>{
+        console.log("fetching the data from localstorage")
+        const storedMembers = localStorage.getItem('memberList')
+        if (storedMembers) {
+            setMemberList(JSON.parse(storedMembers));
+        }
+    }, [])
+
+    useEffect(()=>{
+        console.log("Updating the user storage")
+        if (memberList.length > 0) {
+            localStorage.setItem('memberList', JSON.stringify(memberList));
+        }
+    }, [memberList])
+
     const addNamesList = () => {
         if (!nameValue.trim()) {
             return;
